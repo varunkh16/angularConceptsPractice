@@ -1,0 +1,23 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    Username : <input type="text" name="username" id="username" formControlName="username"><span
+        *ngIf="signUpForm.get('username')?.errors?.['nameIsForbidden']">Username is required!</span><br>
+    Email : <input type="email" name="email" id="email" formControlName="email"><span
+        *ngIf="signUpForm.get('email')?.errors?.['emailIsForbidden']">Email is not valid!</span><br>
+    Gender : <label>
+        <input type="radio" value="Male" formControlName="gender">
+        <span>male</span>
+    </label>
+    <label>
+        <input type="radio" value="Female" formControlName="gender">
+        <span>female</span>
+    </label><br>
+    <div formArrayName="hobbies">
+        <label>hobbies</label>
+        <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby!</button>
+        <div class="form-group" *ngFor="let hobbyControl of getHobbyControls(); let i=index">
+            <input type="text" name="hobby" id="hobby" class="form-control" [formControlName]="i">
+        </div>
+    </div><br>
+    <button type="submit">Click Me!</button>
+    <button type="reset" (click)="clearForm()">Clear Form?</button>
+</form>
